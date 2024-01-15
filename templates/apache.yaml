@@ -1,0 +1,22 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: apache-{{ $.Values.global.env }}
+  namespace: khargocd
+spec:
+  project: {{ $.Values.global.spec.project }}
+  sources:
+  - repoURL: 'https://github.com/bitnami/charts.git'
+    path: bitnami/apache
+    helm:
+      valueFiles:
+      - $values/{{ $.Values.global.env }}-values/values.yaml
+  - repoURL: 'https://github.com/bitnami/charts'
+    ref: values
+  destination:
+    server: {{ $.Values.global.spec.destination.server }}
+    namespace: {{ $.Values.global.spec.destination.namespace }}
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
