@@ -1,7 +1,7 @@
 global:
   # name of the cluster 
   # MUST MATCH THE DIRECTORY NAME
-  clusterName: victoria-metrics-cluster
+  clusterName: victoria-metrics-test
 
   spec:
     source:
